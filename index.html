@@ -1,38 +1,55 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
-    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Une Dernière Danse</title>
     <style>
-        body {
+        /* General Body and Layout */
+        body, html {
             margin: 0;
             padding: 0;
+            height: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
             background-color: black;
             color: white;
             font-family: Arial, sans-serif;
             text-align: center;
-            transition: background-color 2s ease, color 2s ease;
             position: relative;
             overflow: hidden;
         }
-        .hidden {
-            opacity: 0;
+
+        /* Header */
+        h1 {
+            font-size: 5em;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            text-shadow: 4px 4px 10px rgba(255, 255, 255, 0.2), 
+                         0 0 25px rgba(255, 255, 255, 0.4), 
+                         0 0 50px rgba(255, 255, 255, 0.5);
+            animation: fadeIn 3s ease-in-out;
         }
-        .fade-in {
-            animation: fadeIn 2s forwards;
-        }
+
+        /* Animations */
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
         }
 
-        /* Style des boutons */
+        /* Hidden Class for Text */
+        .hidden {
+            opacity: 0;
+        }
+
+        /* Fade-in Effect for Text */
+        .fade-in {
+            animation: fadeIn 2s forwards;
+        }
+
+        /* Button Styles */
         button {
             background: linear-gradient(145deg, #6e7a90, #434f64);
             color: white;
@@ -46,23 +63,22 @@
             font-weight: bold;
             box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
             transition: all 0.3s ease;
-            display: none; /* Caché au départ */
+            display: none;
         }
 
-        /* Effet de survol */
+        /* Hover and Focus Effects for Buttons */
         button:hover {
             background: linear-gradient(145deg, #434f64, #6e7a90);
             box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.3);
             transform: translateY(-3px);
         }
 
-        /* Effet de focus */
         button:focus {
             outline: none;
             transform: translateY(-3px);
         }
 
-        /* Animation des cœurs partout */
+        /* Floating Hearts */
         .hearts {
             position: absolute;
             font-size: 30px;
@@ -86,35 +102,23 @@
             }
         }
 
-        /* Animation pour faire disparaître la page progressivement */
+        /* Fade-out Animation for Page */
         .fade-out {
             animation: fadeOut 3s forwards;
         }
 
         @keyframes fadeOut {
-            0% {
-                opacity: 1;
-            }
-            100% {
-                opacity: 0;
-            }
+            0% { opacity: 1; }
+            100% { opacity: 0; }
         }
 
-        /* Message de confirmation */
+        /* Confirmation and Bye Messages */
         .message {
             font-size: 2em;
             font-weight: bold;
             margin-top: 30px;
         }
-        h1 {
-            font-size: 5em;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 5px;
-            text-shadow: 4px 4px 10px rgba(255, 255, 255, 0.2), 0 0 25px rgba(255, 255, 255, 0.4), 0 0 50px rgba(255, 255, 255, 0.5);
-            animation: fadeIn 3s ease-in-out;
-        }
-        /* Message pour Bye */
+
         .bye-message {
             font-size: 2em;
             color: red;
@@ -124,23 +128,28 @@
 </head>
 <body>
     <div>
-            <h1>THE LAST DANCE ?</h1>
+        <h1>THE LAST DANCE ?</h1>
     </div>
 
-<div id="content">
-    <div id="message">
-        <p class="hidden">Une dernière danse.</p>
-        <p class="hidden">Un endroit où les souvenirs restent.</p>
-        <p class="hidden">Là où le silence nous parle.</p>
-        <p class="hidden">Si tu es arrivée jusqu’ici, alors tu connais la suite.</p>
-        <p class="hidden">Je suis à Ris Orangis.</p>
-        <p class="hidden">Si ton cœur en a envie, rejoins-moi à 20h30.</p>
-        <p class="hidden">Sinon, laisse cette dernière danse flotter dans nos souvenirs.</p>
+    <div id="content">
+        <div id="message">
+            <p class="hidden">A last dance.</p>
+            <p class="hidden">A place where memories remain.</p>
+            <p class="hidden">Where silence speaks to us.</p>
+            <p class="hidden">If you've made it this far, then you know the rest.</p>
+            <p class="hidden">I am at Ris Orangis.</p>
+            <p class="hidden">If your heart feels like it, join me at 8:30 PM.</p>
+            <p class="hidden">Otherwise, let this last dance float in our memories.</p>
+        </div>
+
+        <br>
+
+        <button id="btnOui">Yes, I am coming</button>
+        <button id="btnNon">No, I am not</button>
     </div>
-    <br>
-    <button id="btnOui">Oui, Je viens</button>
-    <button id="btnNon">Non, Je reste</button>
-</div>
+</body>
+</html>
+
 
 <script>
     // Affichage progressif ligne par ligne
