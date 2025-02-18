@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Une Dernière Danse</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            transition: background-color 2s ease, color 2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .hidden {
+            opacity: 0;
+        }
+        .fade-in {
+            animation: fadeIn 2s forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Style des boutons */
+        button {
+            background: linear-gradient(145deg, #6e7a90, #434f64);
+            color: white;
+            font-size: 1.2em;
+            padding: 18px 40px;
+            margin: 20px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-weight: bold;
+            box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            display: none; /* Caché au départ */
+        }
+
+        /* Effet de survol */
+        button:hover {
+            background: linear-gradient(145deg, #434f64, #6e7a90);
+            box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.3);
+            transform: translateY(-3px);
+        }
+
+        /* Effet de focus */
+        button:focus {
+            outline: none;
+            transform: translateY(-3px);
+        }
+
+        /* Animation des cœurs partout */
+        .hearts {
+            position: absolute;
+            font-size: 30px;
+            color: red;
+            animation: floatHearts 3s infinite;
+            z-index: 999;
+        }
+
+        @keyframes floatHearts {
+            0% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(-50px);
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Animation pour faire disparaître la page progressivement */
+        .fade-out {
+            animation: fadeOut 3s forwards;
+        }
+
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+
+        /* Message de confirmation */
+        .message {
+            font-size: 2em;
+            font-weight: bold;
+            margin-top: 30px;
+        }
+
+        /* Message pour Bye */
+        .bye-message {
+            font-size: 2em;
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div id="content">
+    <div id="message">
+        <p class="hidden">Une dernière danse.</p>
+        <p class="hidden">Un endroit où les souvenirs restent.</p>
+        <p class="hidden">Là où le silence nous parle.</p>
+        <p class="hidden">Si tu es arrivée jusqu’ici, alors tu connais la suite.</p>
+        <p class="hidden">Je suis à Ris Orangis.</p>
+        <p class="hidden">Si ton cœur en a envie, rejoins-moi à 20h30.</p>
+        <p class="hidden">Sinon, laisse cette dernière danse flotter dans nos souvenirs.</p>
+    </div>
+    <br>
+    <button id="btnOui">Oui, Je viens</button>
+    <button id="btnNon">Non, Je reste</button>
+</div>
+
+<script>
+    // Affichage progressif ligne par ligne
+    window.onload = function() {
+        const lines = document.querySelectorAll("#message p");
+        let delay = 800; // Premier délai avant le premier texte
+
+        lines.forEach((line, index) => {
+            setTimeout(() => {
+                line.classList.remove("hidden");
+                line.classList.add("fade-in");
+            }, delay);
+            delay += 1500; // Délai de 2 secondes entre chaque ligne
+        });
+
+        // Afficher les boutons après l'affichage complet des phrases
+        setTimeout(() => {
+            document.getElementById("btnOui").style.display = "inline-block";
+            document.getElementById("btnNon").style.display = "inline-block";
+        }, delay);
+    };
+
+    // Gestion des clics sur les boutons
+    document.getElementById("btnOui").onclick = function() {
+        changeAnimation(true);
+    };
+
+    document.getElementById("btnNon").onclick = function() {
+        changeAnimation(false);
+    };
+
+    function sendMessage(response) {
+        console.log(response);
+        fetch('/send-message', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ message: response })
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert("Message envoyé : " + response);
+        })
+        .catch(error => {
+            alert("Erreur lors de l'envoi du message.");
+            console.error("Error:", error);
+        });
+    }
+
+    // Fonction qui change l'animation et les couleurs en fonction du choix
+    function changeAnimation(isYes) {
+        const content = document.getElementById("content");
+        const message = document.createElement("div");
+
+        // Faire disparaître les boutons au moment de l'appui
+        document.getElementById("btnOui").style.display = "none";
+        document.getElementById("btnNon").style.display = "none";
+
+        // Effacer le contenu existant (le texte initial)
+        const initialMessage = document.getElementById("message");
+        initialMessage.classList.add("fade-out");
+
+        setTimeout(() => {
+            initialMessage.style.display = "none"; // Cacher le texte initial après l'animation
+        }, 2000);
+
+        if (isYes) {
+            // Si l'utilisateur clique sur "Oui, Je viens"
+            document.body.style.backgroundColor = "#ff4d6d";  // Rouge / Rose
+            document.body.style.color = "white";
+
+            // Afficher des cœurs animés
+            for (let i = 0; i < 10; i++) {
+                const heart = document.createElement("div");
+                heart.classList.add("hearts");
+                heart.style.left = `${Math.random() * 100}vw`;
+                heart.style.top = `${Math.random() * 100}vh`;
+                heart.innerHTML = "❤️";
+                document.body.appendChild(heart);
+            }
+
+            // Ajouter le message "À tout de suite ma Linguère"
+            message.classList.add("message");
+            message.innerHTML = "À tout de suite ma Linguère";
+            content.appendChild(message);
+
+            // Faire disparaître la page après quelques secondes
+            setTimeout(() => {
+                document.body.classList.add("fade-out");
+            }, 5000);
+        } else {
+            // Si l'utilisateur clique sur "Non, Je reste"
+            document.body.style.backgroundColor = "#3e3e3e";  // Gris sombre
+            document.body.style.color = "#bbb";  // Texte fade
+
+            // Afficher le message "BYE"
+            message.classList.add("bye-message");
+            message.innerHTML = "BYE";
+            content.appendChild(message);
+
+            // Faire disparaître la page immédiatement
+            setTimeout(() => {
+                document.body.classList.add("fade-out");
+            }, 1000);
+        }
+    }
+</script>
+
+</body>
+</html>
