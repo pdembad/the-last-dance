@@ -153,13 +153,16 @@
     };
 
     // Gestion des clics sur les boutons
-    document.getElementById("btnOui").onclick = function() {
-        changeAnimation(true);
-    };
+document.getElementById("btnOui").onclick = function() {
+    sendMessage("Oui, je viens");  // Envoi du message pour "Oui"
+    changeAnimation(true);
+};
 
-    document.getElementById("btnNon").onclick = function() {
-        changeAnimation(false);
-    };
+document.getElementById("btnNon").onclick = function() {
+    sendMessage("Non, je reste");  // Envoi du message pour "Non"
+    changeAnimation(false);
+};
+
 
     function sendMessage(response) {
         console.log(response);
