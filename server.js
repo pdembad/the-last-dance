@@ -22,7 +22,7 @@ const client = twilio("ACa5b7a1d708145bd59252af14a06d05ef", "9070aa8b29a3c38d862
 app.use(express.static(path.join(__dirname, '/')));
 
 // Route pour envoyer un message
-app.post('/send-message', async (req, res) => {
+app.post('https://last-dance.onrender.com/send-message', async (req, res) => {
     const { message } = req.body;
     alert("here");
     console.log("Requête reçue sur /send-message"); // Log when the request is received
