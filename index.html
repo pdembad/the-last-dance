@@ -12,7 +12,7 @@
             height: 100%;
             display: flex;
             justify-content: center;
-            align-items: flex-start; /* Align at the top of the page */
+            align-items: center; /* Center the content vertically */
             background-color: black;
             color: white;
             font-family: Arial, sans-serif;
@@ -32,7 +32,7 @@
                          0 0 25px rgba(255, 255, 255, 0.4), 
                          0 0 50px rgba(255, 255, 255, 0.5);
             animation: fadeIn 3s ease-in-out;
-            margin-top: 20px; /* Add some space at the top */
+            margin-bottom: 20px; /* Add space between header and content */
         }
 
         /* Animations */
@@ -65,7 +65,7 @@
             font-weight: bold;
             box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
             transition: all 0.3s ease;
-            display: inline-block; /* Display buttons inline */
+            display: none; /* Buttons are hidden by default */
         }
 
         /* Hover and Focus Effects for Buttons */
@@ -149,121 +149,116 @@
         <button id="btnOui">Yes, I am coming</button>
         <button id="btnNon">No, I am not</button>
     </div>
-</body>
-</html>
 
+    <script>
+        // Display text line by line and show buttons after all text is displayed
+        window.onload = function() {
+            const lines = document.querySelectorAll("#message p");
+            let delay = 800; // Initial delay before first text
 
-<script>
-    // Affichage progressif ligne par ligne
-    window.onload = function() {
-        const lines = document.querySelectorAll("#message p");
-        let delay = 800; // Premier délai avant le premier texte
+            lines.forEach((line, index) => {
+                setTimeout(() => {
+                    line.classList.remove("hidden");
+                    line.classList.add("fade-in");
+                }, delay);
+                delay += 1500; // Delay of 1.5 seconds between each line
+            });
 
-        lines.forEach((line, index) => {
+            // Show buttons after all text has been displayed
             setTimeout(() => {
-                line.classList.remove("hidden");
-                line.classList.add("fade-in");
+                document.getElementById("btnOui").style.display = "inline-block";
+                document.getElementById("btnNon").style.display = "inline-block";
             }, delay);
-            delay += 1500; // Délai de 2 secondes entre chaque ligne
-        });
+        };
 
-        // Afficher les boutons après l'affichage complet des phrases
-        setTimeout(() => {
-            document.getElementById("btnOui").style.display = "inline-block";
-            document.getElementById("btnNon").style.display = "inline-block";
-        }, delay);
-    };
+        // Button click handling
+        document.getElementById("btnOui").onclick = function() {
+            sendMessage("Oui, je viens");
+            changeAnimation(true);
+        };
 
-    // Gestion des clics sur les boutons
-document.getElementById("btnOui").onclick = function() {
-    sendMessage("Oui, je viens");  // Envoi du message pour "Oui"
-    changeAnimation(true);
-};
+        document.getElementById("btnNon").onclick = function() {
+            sendMessage("Non, je reste");
+            changeAnimation(false);
+        };
 
-document.getElementById("btnNon").onclick = function() {
-    sendMessage("Non, je reste");  // Envoi du message pour "Non"
-    changeAnimation(false);
-};
-
-
-    function sendMessage(response) {
-        console.log(response);
-        fetch('/send-message', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ message: response })
-        })
-        .then(response => response.json())
-        .then(data => {
-            alert("Message envoyé !");
-            console.log("data :", data);
-        })
-        .catch(error => {
-            alert("Erreur lors de l'envoi du message.");
-            console.error("Error:", error);
-        });
-    }
-
-    // Fonction qui change l'animation et les couleurs en fonction du choix
-    function changeAnimation(isYes) {
-        const content = document.getElementById("content");
-        const message = document.createElement("div");
-
-        // Faire disparaître les boutons au moment de l'appui
-        document.getElementById("btnOui").style.display = "none";
-        document.getElementById("btnNon").style.display = "none";
-
-        // Effacer le contenu existant (le texte initial)
-        const initialMessage = document.getElementById("message");
-        initialMessage.classList.add("fade-out");
-
-        setTimeout(() => {
-            initialMessage.style.display = "none"; // Cacher le texte initial après l'animation
-        }, 2000);
-
-        if (isYes) {
-            // Si l'utilisateur clique sur "Oui, Je viens"
-            document.body.style.backgroundColor = "#ff4d6d";  // Rouge / Rose
-            document.body.style.color = "white";
-
-            // Afficher des cœurs animés
-            for (let i = 0; i < 10; i++) {
-                const heart = document.createElement("div");
-                heart.classList.add("hearts");
-                heart.style.left = `${Math.random() * 100}vw`;
-                heart.style.top = `${Math.random() * 100}vh`;
-                heart.innerHTML = "❤️";
-                document.body.appendChild(heart);
-            }
-
-            // Ajouter le message "À tout de suite ma Linguère"
-            message.classList.add("message");
-            message.innerHTML = "À tout de suite ma Linguère";
-            content.appendChild(message);
-
-            // Faire disparaître la page après quelques secondes
-            setTimeout(() => {
-                document.body.classList.add("fade-out");
-            }, 5000);
-        } else {
-            // Si l'utilisateur clique sur "Non, Je reste"
-            document.body.style.backgroundColor = "#3e3e3e";  // Gris sombre
-            document.body.style.color = "#bbb";  // Texte fade
-
-            // Afficher le message "BYE"
-            message.classList.add("bye-message");
-            message.innerHTML = "BYE";
-            content.appendChild(message);
-
-            // Faire disparaître la page immédiatement
-            setTimeout(() => {
-                document.body.classList.add("fade-out");
-            }, 1000);
+        function sendMessage(response) {
+            console.log(response);
+            fetch('/send-message', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ message: response })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert("Message envoyé !");
+                console.log("data:", data);
+            })
+            .catch(error => {
+                alert("Erreur lors de l'envoi du message.");
+                console.error("Error:", error);
+            });
         }
-    }
-</script>
 
+        // Function to change animation and colors based on the user's choice
+        function changeAnimation(isYes) {
+            const content = document.getElementById("content");
+            const message = document.createElement("div");
+
+            // Hide buttons when clicked
+            document.getElementById("btnOui").style.display = "none";
+            document.getElementById("btnNon").style.display = "none";
+
+            // Fade out initial content
+            const initialMessage = document.getElementById("message");
+            initialMessage.classList.add("fade-out");
+
+            setTimeout(() => {
+                initialMessage.style.display = "none"; // Hide initial text after animation
+            }, 2000);
+
+            if (isYes) {
+                // If the user clicks "Yes, I am coming"
+                document.body.style.backgroundColor = "#ff4d6d";  // Red / Pink
+                document.body.style.color = "white";
+
+                // Show floating hearts
+                for (let i = 0; i < 10; i++) {
+                    const heart = document.createElement("div");
+                    heart.classList.add("hearts");
+                    heart.style.left = `${Math.random() * 100}vw`;
+                    heart.style.top = `${Math.random() * 100}vh`;
+                    heart.innerHTML = "❤️";
+                    document.body.appendChild(heart);
+                }
+
+                // Show the "À tout de suite ma Linguère" message
+                message.classList.add("message");
+                message.innerHTML = "À tout de suite ma Linguère";
+                content.appendChild(message);
+
+                // Fade out the page after a few seconds
+                setTimeout(() => {
+                    document.body.classList.add("fade-out");
+                }, 5000);
+            } else {
+                // If the user clicks "No, I am staying"
+                document.body.style.backgroundColor = "#3e3e3e";  // Dark gray
+                document.body.style.color = "#bbb";  // Faded text
+
+                // Show the "BYE" message
+                message.classList.add("bye-message");
+                message.innerHTML = "BYE";
+                content.appendChild(message);
+
+                // Fade out the page immediately
+                setTimeout(() => {
+                    document.body.classList.add("fade-out");
+                }, 1000);
+            }
+        }
+    </script>
 </body>
 </html>
