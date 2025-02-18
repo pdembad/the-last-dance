@@ -13,7 +13,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // 🟢 Serve les fichiers statiques
-app.use(express.static('public'));
+//app.use(express.static('public'));
 
 // Créer une instance Twilio client
 const client = twilio("ACa5b7a1d708145bd59252af14a06d05ef", "9070aa8b29a3c38d8623b68fe2fffa93");
@@ -50,7 +50,7 @@ app.post('/send-message', async (req, res) => {
 // 🚀 Serve index.html pour la page d'accueil
 app.get('/', (req, res) => {
     console.log('Page d\'accueil demandée');
-    res.sendFile(__dirname + '/public/index.html');
+    res.sendFile(__dirname + '/index.html');
 });
 
 // Démarrer le serveur
