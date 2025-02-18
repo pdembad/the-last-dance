@@ -166,7 +166,7 @@ document.getElementById("btnNon").onclick = function() {
 
     function sendMessage(response) {
         console.log(response);
-        fetch('https://last-dance.onrender.com/send-message', {
+        fetch('/send-message', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
