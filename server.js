@@ -16,7 +16,7 @@ app.use(bodyParser.json());
 //app.use(express.static('public'));
 
 // Créer une instance Twilio client
-const client = twilio("ACa5b7a1d708145bd59252af14a06d05ef", "9070aa8b29a3c38d8623b68fe2fffa93");
+const client = twilio("ACa5b7a1d708145bd59252af14a06d05ef", "801543f695fb985ff39c0161cb1a354b");
 
 // Servez les fichiers statiques depuis la racine du projet
 app.use(express.static(path.join(__dirname, '/')));
