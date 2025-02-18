@@ -166,6 +166,7 @@ document.getElementById("btnNon").onclick = function() {
 
     function sendMessage(response) {
         console.log(response);
+        alert("here");
         fetch('/send-message', {
             method: 'POST',
             headers: {
