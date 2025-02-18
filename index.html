@@ -12,16 +12,17 @@
             height: 100%;
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start; /* Align at the top of the page */
             background-color: black;
             color: white;
             font-family: Arial, sans-serif;
             text-align: center;
             position: relative;
             overflow: hidden;
+            flex-direction: column; /* Stack content vertically */
         }
 
-        /* Header */
+        /* Header Styling */
         h1 {
             font-size: 5em;
             font-weight: bold;
@@ -31,6 +32,7 @@
                          0 0 25px rgba(255, 255, 255, 0.4), 
                          0 0 50px rgba(255, 255, 255, 0.5);
             animation: fadeIn 3s ease-in-out;
+            margin-top: 20px; /* Add some space at the top */
         }
 
         /* Animations */
@@ -63,7 +65,7 @@
             font-weight: bold;
             box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
             transition: all 0.3s ease;
-            display: none;
+            display: inline-block; /* Display buttons inline */
         }
 
         /* Hover and Focus Effects for Buttons */
@@ -137,7 +139,7 @@
             <p class="hidden">A place where memories remain.</p>
             <p class="hidden">Where silence speaks to us.</p>
             <p class="hidden">If you've made it this far, then you know the rest.</p>
-            <p class="hidden">I am at Ris Orangis.</p>
+            <p class="hidden">I am in Ris Orangis.</p>
             <p class="hidden">If your heart feels like it, join me at 8:30 PM.</p>
             <p class="hidden">Otherwise, let this last dance float in our memories.</p>
         </div>
