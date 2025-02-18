@@ -13,7 +13,10 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // 🟢 Serve les fichiers statiques
-app.use(express.static('public'));
+//app.use(express.static('public'));
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));  // Serve index.html directly
+});
 
 // Créer une instance Twilio client
 const client = twilio("ACa5b7a1d708145bd59252af14a06d05ef", "9070aa8b29a3c38d8623b68fe2fffa93");
