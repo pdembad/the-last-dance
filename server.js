@@ -24,7 +24,7 @@ app.use(express.static(path.join(__dirname, '/')));
 // Route pour envoyer un message
 app.post('/send-message', async (req, res) => {
     const { message } = req.body;
-    alert("here", req.body);
+    console.log("here", req.body);
     console.log("Requête reçue sur /send-message"); // Log when the request is received
     console.log("Message reçu:", message);  // Log the message that was received
 
