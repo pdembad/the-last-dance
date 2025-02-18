@@ -167,7 +167,6 @@ document.getElementById("btnNon").onclick = function() {
 
     function sendMessage(response) {
         console.log(response);
-        alert("here");
         fetch('/send-message', {
             method: 'POST',
             headers: {
@@ -177,7 +176,8 @@ document.getElementById("btnNon").onclick = function() {
         })
         .then(response => response.json())
         .then(data => {
-            alert("Message envoyé : " + response);
+            alert("Message envoyé !");
+            console.log("data :", data);
         })
         .catch(error => {
             alert("Erreur lors de l'envoi du message.");
