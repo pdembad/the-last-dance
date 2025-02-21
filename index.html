@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Do You Wanna Reconnect?</title>
     <style>
+        /* Les styles restent identiques */
         body, html {
             margin: 0;
             padding: 0;
@@ -154,10 +155,12 @@
             const textContainer = document.getElementById("textContainer");
             const buttons = document.querySelector(".buttons");
 
-            function typeText(element, text, i = 0) {
+            function typeText(element, text, callback, i = 0) {
                 if (i < text.length) {
                     element.textContent += text.charAt(i);
-                    setTimeout(() => typeText(element, text, i + 1), 100);
+                    setTimeout(() => typeText(element, text, callback, i + 1), 50);
+                } else {
+                    if (callback) callback();
                 }
             }
 
@@ -166,9 +169,13 @@
                     const p = document.createElement("p");
                     p.className = "line";
                     textContainer.appendChild(p);
-                    typeText(p, lines[index]);
-                    index++;
-                    setTimeout(showNextLine, 3000); // Wait before starting the next line
+                    
+                    typeText(p, lines[index], () => {
+                        // Défilement automatique après chaque ligne
+                        window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+                        index++;
+                        showNextLine();
+                    });
                 } else {
                     buttons.style.display = "flex";
                     buttons.style.justifyContent = "center";
@@ -178,7 +185,6 @@
 
             showNextLine();
 
-            // Dynamically adjust layout based on window width
             function adjustLayout() {
                 const screenWidth = window.innerWidth;
                 const content = document.querySelector("#content");
@@ -190,8 +196,7 @@
                 }
             }
 
-            adjustLayout(); // Adjust layout on page load
-
+            adjustLayout();
             window.addEventListener("resize", adjustLayout);
         });
 
