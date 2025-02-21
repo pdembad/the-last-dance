@@ -35,13 +35,13 @@
             font-size: 1.2em;
             margin-bottom: 15px;
             opacity: 1;
-            white-space: normal; /* Permet au texte de revenir à la ligne */
-            word-wrap: break-word; /* Forcer le passage à la ligne si nécessaire */
+            white-space: normal;
+            word-wrap: break-word;
             overflow: hidden;
-            width: 90%; /* Empêche le débordement */
-            max-width: 600px; /* Ne dépasse pas une largeur confortable */
+            width: 90%;
+            max-width: 600px;
             display: block;
-            text-align: center; /* Centre le texte */
+            text-align: center;
         }
 
         .buttons {
@@ -85,6 +85,7 @@
             outline: none;
             box-sizing: border-box;
         }
+
         #textContainer {
             width: 100%;
             max-width: 600px;
@@ -167,7 +168,7 @@
                     textContainer.appendChild(p);
                     typeText(p, lines[index]);
                     index++;
-                    setTimeout(showNextLine, 3000); // Attendre avant de commencer la prochaine ligne
+                    setTimeout(showNextLine, 3000); // Wait before starting the next line
                 } else {
                     buttons.style.display = "flex";
                     buttons.style.justifyContent = "center";
@@ -182,17 +183,15 @@
                 const screenWidth = window.innerWidth;
                 const content = document.querySelector("#content");
 
-                // On smaller screens, adjust content width
                 if (screenWidth <= 600) {
                     content.style.width = "90%";
                 } else {
-                    content.style.width = "600px"; // Default width for larger screens
+                    content.style.width = "600px";
                 }
             }
 
             adjustLayout(); // Adjust layout on page load
 
-            // Listen for window resize events and adjust layout
             window.addEventListener("resize", adjustLayout);
         });
 
