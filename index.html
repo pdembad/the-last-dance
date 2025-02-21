@@ -14,8 +14,6 @@
             font-family: 'Courier New', monospace;
             text-align: center;
             overflow-y: auto;
-            padding: 20px;
-            position: relative;
             box-sizing: border-box;
         }
 
@@ -23,11 +21,13 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
+            width: 100%;
             max-width: 600px;
-            width: 100%; /* Dynamic width */
             margin: auto;
             position: relative;
             box-sizing: border-box;
+            padding: 20px;
         }
 
         .line {
@@ -56,8 +56,8 @@
             cursor: pointer;
             font-weight: bold;
             transition: all 0.3s ease;
-            width: 70%; /* Adjusted width */
-            max-width: 300px; /* Limited for larger screens */
+            width: 70%;
+            max-width: 300px;
         }
 
         button:hover {
@@ -86,11 +86,10 @@
             display: none;
             margin-top: 10px;
             background: #ff4d6d;
-            width: 100%; /* Adjusted width */
-            max-width: 300px; /* Limited for larger screens */
+            width: 100%;
+            max-width: 300px;
         }
 
-        /* Terminal effect background */
         #terminalBackground {
             position: absolute;
             top: 0;
@@ -147,7 +146,7 @@
             function typeText(element, text, i = 0) {
                 if (i < text.length) {
                     element.textContent += text.charAt(i);
-                    setTimeout(() => typeText(element, text, i + 1), 100); // Adjust typing speed here
+                    setTimeout(() => typeText(element, text, i + 1), 100);
                 }
             }
 
@@ -156,9 +155,9 @@
                     const p = document.createElement("p");
                     p.className = "line";
                     textContainer.appendChild(p);
-                    typeText(p, lines[index]); // Start typing each line
+                    typeText(p, lines[index]);
                     index++;
-                    setTimeout(showNextLine, 3000); // Delay between lines
+                    setTimeout(showNextLine, 3000);
                 } else {
                     buttons.style.display = "flex";
                     buttons.style.justifyContent = "center";
@@ -168,22 +167,22 @@
 
             showNextLine();
 
-            // Get the width of the window
+            // Get the width of the window to adjust content dynamically
             function adjustLayout() {
                 const screenWidth = window.innerWidth;
+                const content = document.querySelector("#content");
 
-                // Adjust the width of the content based on screen size
+                // Adjust width for small screens
                 if (screenWidth <= 600) {
-                    document.querySelector("#content").style.width = "90%"; // On small screens
-                    document.querySelector("#sendMessage").style.maxWidth = "80%"; // Smaller width for input button
+                    content.style.width = "90%"; // On small screens, use 90% width
                 } else {
-                    document.querySelector("#content").style.width = "600px"; // Default width for larger screens
-                    document.querySelector("#sendMessage").style.maxWidth = "300px"; // Default width for send button
+                    content.style.width = "600px"; // Default width for larger screens
                 }
             }
 
-            // Run adjustLayout on page load and window resize
-            adjustLayout();
+            adjustLayout(); // Adjust layout on page load
+
+            // Listen for window resize events and adjust layout
             window.addEventListener("resize", adjustLayout);
         });
 
