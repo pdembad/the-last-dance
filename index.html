@@ -13,7 +13,7 @@
             color: white;
             font-family: Arial, sans-serif;
             text-align: center;
-            overflow-y: auto; /* Permet le scroll */
+            overflow-y: auto;
             padding: 20px;
         }
 
@@ -85,16 +85,7 @@
 <body>
     <div id="content">
         <h2>Do You Wanna Reconnect?</h2>
-
-        <p class="line">This is a pretty unusual situation, isn’t it?</p>
-        <p class="line">I mean, how can I be sure you’ll ever check this website again?</p>
-        <p class="line">The truth is—I can’t be sure at all.</p>
-        <p class="line">The only thing I <i>am</i> sure of is that I miss you. I really do.</p>
-        <p class="line">I hoped, maybe, just maybe, you’d miss me at the same time…</p>
-        <p class="line">And maybe, you’d come back here, just to check.</p>
-        <p class="line">Yeah, I know—it’s bold, it’s odd.</p>
-        <p class="line">But at this point, you’re already used to my out-of-the-box ways, right?</p>
-        <p class="line">So… here it is.</p>
+        <div id="textContainer"></div>
 
         <div class="buttons">
             <button id="btnYes">Yes, I do</button>
@@ -109,18 +100,35 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            const lines = document.querySelectorAll(".line");
+            const lines = [
+                "This is a pretty unusual situation, isn’t it?",
+                "I mean, how can I be sure you’ll ever check this website again?",
+                "The truth is—I can’t be sure at all.",
+                "The only thing I am sure of is that I miss you. I really do.",
+                "I hoped, maybe, just maybe, you’d miss me at the same time…",
+                "And maybe, you’d come back here, just to check.",
+                "Yeah, I know—it’s bold, it’s odd.",
+                "But at this point, you’re already used to my out-of-the-box ways, right?",
+                "So… here it is."
+            ];
+
             let index = 0;
+            const textContainer = document.getElementById("textContainer");
+            const buttons = document.querySelector(".buttons");
 
             function showNextLine() {
                 if (index < lines.length) {
-                    lines[index].style.animationDelay = "0.5s";
-                    lines[index].style.opacity = "1";
+                    const p = document.createElement("p");
+                    p.className = "line";
+                    p.textContent = lines[index];
+                    textContainer.appendChild(p);
+                    p.style.animation = "fadeIn 1s forwards";
                     window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
                     index++;
                     setTimeout(showNextLine, 1500);
                 } else {
-                    document.querySelector(".buttons").style.display = "block";
+                    buttons.style.display = "flex";
+                    buttons.style.justifyContent = "center";
                     window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
                 }
             }
