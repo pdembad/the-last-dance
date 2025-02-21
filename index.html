@@ -137,8 +137,10 @@
             const buttons = document.querySelector(".buttons");
 
             function typeText(element, text, i = 0) {
+                console.log(`Typing text: ${text}`);
                 if (i < text.length) {
                     element.textContent += text.charAt(i);
+                    console.log(`Current text: ${element.textContent}`);
                     setTimeout(() => typeText(element, text, i + 1), 100); // Adjust typing speed here
                 }
             }
@@ -150,15 +152,17 @@
                     textContainer.appendChild(p);
                     typeText(p, lines[index]); // Start typing each line
                     index++;
-                    setTimeout(showNextLine, 3000); // Delay between lines
+                    console.log(`Showing line: ${lines[index-1]}`);
+                    setTimeout(showNextLine, 3500); // Delay between lines
                 } else {
+                    console.log("All lines have been shown.");
                     buttons.style.display = "flex";
                     buttons.style.justifyContent = "center";
                     window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
                 }
             }
 
-            showNextLine();
+            showNextLine(); // Call showNextLine to start displaying text
         });
 
         document.getElementById("btnYes").onclick = function() {
