@@ -44,7 +44,6 @@
             text-align: center; /* Centre le texte */
         }
 
-
         .buttons {
             display: none;
             margin-top: 20px;
@@ -86,12 +85,12 @@
             outline: none;
             box-sizing: border-box;
         }
-#textContainer {
-    width: 100%;
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 10px;
-}
+        #textContainer {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 10px;
+        }
 
         #sendMessage {
             display: none;
@@ -168,7 +167,7 @@
                     textContainer.appendChild(p);
                     typeText(p, lines[index]);
                     index++;
-                    setTimeout(showNextLine, 3000);
+                    setTimeout(showNextLine, 3000); // Attendre avant de commencer la prochaine ligne
                 } else {
                     buttons.style.display = "flex";
                     buttons.style.justifyContent = "center";
