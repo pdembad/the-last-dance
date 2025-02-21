@@ -33,21 +33,8 @@
             opacity: 0;
             white-space: nowrap;
             overflow: hidden;
-            animation: typing 2s steps(30) forwards, fadeIn 1s 2s forwards;
-        }
-
-        @keyframes typing {
-            from {
-                width: 0;
-            }
-            to {
-                width: 100%;
-            }
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            width: 0;
+            display: inline-block;
         }
 
         .buttons {
@@ -158,16 +145,22 @@
                 typingSound.play();
             }
 
+            function typeText(element, text, i = 0) {
+                if (i < text.length) {
+                    element.textContent += text.charAt(i);
+                    playTypingSound(); // Play typing sound
+                    setTimeout(() => typeText(element, text, i + 1), 100); // Adjust typing speed here
+                }
+            }
+
             function showNextLine() {
                 if (index < lines.length) {
                     const p = document.createElement("p");
                     p.className = "line";
-                    p.textContent = lines[index];
                     textContainer.appendChild(p);
-                    playTypingSound(); // Play typing sound
-                    window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+                    typeText(p, lines[index]); // Start typing each line
                     index++;
-                    setTimeout(showNextLine, 3000); // Delay to simulate typing effect
+                    setTimeout(showNextLine, 3000); // Delay between lines
                 } else {
                     buttons.style.display = "flex";
                     buttons.style.justifyContent = "center";
