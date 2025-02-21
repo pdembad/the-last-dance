@@ -28,6 +28,7 @@
             position: relative;
             box-sizing: border-box;
             padding: 20px;
+            overflow: hidden;
         }
 
         .line {
@@ -38,6 +39,7 @@
             overflow: hidden;
             width: 100%;
             display: inline-block;
+            word-wrap: break-word; /* Prevent word overflow */
         }
 
         .buttons {
@@ -167,14 +169,14 @@
 
             showNextLine();
 
-            // Get the width of the window to adjust content dynamically
+            // Dynamically adjust layout based on window width
             function adjustLayout() {
                 const screenWidth = window.innerWidth;
                 const content = document.querySelector("#content");
 
-                // Adjust width for small screens
+                // On smaller screens, adjust content width
                 if (screenWidth <= 600) {
-                    content.style.width = "90%"; // On small screens, use 90% width
+                    content.style.width = "90%";
                 } else {
                     content.style.width = "600px"; // Default width for larger screens
                 }
