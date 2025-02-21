@@ -6,98 +6,119 @@
     <title>Do You Wanna Reconnect?</title>
     <style>
         body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            background-color: black;
-            color: white;
-            font-family: 'Courier New', monospace;
-            text-align: center;
-            overflow-y: auto;
-            padding: 20px;
-            position: relative;
-        }
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background-color: black;
+    color: white;
+    font-family: 'Courier New', monospace;
+    text-align: center;
+    overflow-y: auto;
+    padding: 20px;
+    position: relative;
+    box-sizing: border-box; /* Important pour éviter les débordements */
+}
 
-        #content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            max-width: 600px;
-            margin: auto;
-            position: relative;
-        }
+#content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 600px; /* Fixer une largeur maximale pour les grands écrans */
+    width: 100%; /* Pour que ça s'adapte bien sur mobile */
+    margin: auto;
+    position: relative;
+    box-sizing: border-box; /* Important pour éviter les débordements */
+}
 
-        .line {
-            font-size: 1.2em;
-            margin-bottom: 15px;
-            opacity: 1; /* Assurons-nous que le texte est visible */
-            white-space: nowrap;
-            overflow: hidden;
-            width: auto; /* Ajustement de la largeur */
-            display: inline-block;
-        }
+.line {
+    font-size: 1.2em;
+    margin-bottom: 15px;
+    opacity: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 100%; /* Assurez-vous que le texte ne déborde pas */
+    display: inline-block;
+}
 
-        .buttons {
-            display: none;
-            margin-top: 20px;
-        }
+.buttons {
+    display: none;
+    margin-top: 20px;
+}
 
-        button {
-            background: linear-gradient(145deg, #6e7a90, #434f64);
-            color: white;
-            font-size: 1.2em;
-            padding: 15px 30px;
-            margin: 10px;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s ease;
-        }
+button {
+    background: linear-gradient(145deg, #6e7a90, #434f64);
+    color: white;
+    font-size: 1.2em;
+    padding: 15px 30px;
+    margin: 10px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    width: 70%; /* Rendre les boutons plus adaptés sur mobile */
+    max-width: 300px; /* Limiter la largeur des boutons */
+}
 
-        button:hover {
-            background: linear-gradient(145deg, #434f64, #6e7a90);
-            transform: translateY(-3px);
-        }
+button:hover {
+    background: linear-gradient(145deg, #434f64, #6e7a90);
+    transform: translateY(-3px);
+}
 
-        #messageInput {
-            display: none;
-            margin-top: 20px;
-        }
+#messageInput {
+    display: none;
+    margin-top: 20px;
+    width: 100%;
+}
 
-        input {
-            padding: 10px;
-            font-size: 1.1em;
-            width: 80%;
-            max-width: 400px;
-            border-radius: 5px;
-            border: none;
-            outline: none;
-        }
+input {
+    padding: 10px;
+    font-size: 1.1em;
+    width: 80%;
+    max-width: 400px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    box-sizing: border-box;
+}
 
-        #sendMessage {
-            display: none;
-            margin-top: 10px;
-            background: #ff4d6d;
-        }
+#sendMessage {
+    display: none;
+    margin-top: 10px;
+    background: #ff4d6d;
+    width: 100%; /* Assurez-vous que le bouton "Envoyer" s'adapte bien */
+    max-width: 300px; /* Limiter la largeur */
+}
 
-        /* Terminal effect background */
-        #terminalBackground {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('https://www.transparenttextures.com/patterns/black-linen.png');
-            animation: glitchBackground 2s infinite;
-            opacity: 0.3;
-        }
+/* Terminal effect background */
+#terminalBackground {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://www.transparenttextures.com/patterns/black-linen.png');
+    animation: glitchBackground 2s infinite;
+    opacity: 0.3;
+}
 
-        @keyframes glitchBackground {
-            0% { transform: translate(2px, 2px); }
-            50% { transform: translate(-2px, -2px); }
-            100% { transform: translate(2px, 2px); }
-        }
+@keyframes glitchBackground {
+    0% { transform: translate(2px, 2px); }
+    50% { transform: translate(-2px, -2px); }
+    100% { transform: translate(2px, 2px); }
+}
+
+/* Ajouter des ajustements pour les petits écrans */
+@media (max-width: 600px) {
+    .line {
+        font-size: 1em; /* Réduire légèrement la taille de la police sur mobile */
+    }
+
+    button {
+        width: 80%; /* Rendre les boutons plus grands sur mobile */
+    }
+}
+
 
     </style>
 </head>
