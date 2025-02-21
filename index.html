@@ -9,31 +9,27 @@
             margin: 0;
             padding: 0;
             height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             background-color: black;
             color: white;
             font-family: Arial, sans-serif;
             text-align: center;
+            overflow-y: auto; /* Permet le scroll */
+            padding: 20px;
+        }
+
+        #content {
+            display: flex;
             flex-direction: column;
-        }
-
-        h2 {
-            font-size: 2.5em;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 10px rgba(255, 255, 255, 0.2);
-        }
-
-        p {
-            font-size: 1.2em;
+            align-items: center;
             max-width: 600px;
-            opacity: 0;
-            animation: fadeIn 2s forwards;
+            margin: auto;
         }
 
-        .hidden {
-            display: none;
+        .line {
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            opacity: 0;
+            animation: fadeIn 1s forwards;
         }
 
         @keyframes fadeIn {
@@ -41,17 +37,21 @@
             to { opacity: 1; }
         }
 
+        .buttons {
+            display: none;
+            margin-top: 20px;
+        }
+
         button {
             background: linear-gradient(145deg, #6e7a90, #434f64);
             color: white;
             font-size: 1.2em;
             padding: 15px 30px;
-            margin: 15px;
+            margin: 10px;
             border: none;
             border-radius: 50px;
             cursor: pointer;
             font-weight: bold;
-            box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
             transition: all 0.3s ease;
         }
 
@@ -83,30 +83,55 @@
     </style>
 </head>
 <body>
-    <h2>Do You Wanna Reconnect?</h2>
+    <div id="content">
+        <h2>Do You Wanna Reconnect?</h2>
 
-    <p>This is a pretty unusual situation, isn’t it?</p>
-    <p>I mean, how can I be sure you’ll ever check this website again?</p>
-    <p>The truth is—I can’t be sure at all.</p>
-    <p>The only thing I <i>am</i> sure of is that I miss you. I really do.</p>
-    <p>I hoped, maybe, just maybe, you’d miss me at the same time…</p>
-    <p>And maybe, you’d come back here, just to check.</p>
-    <p>Yeah, I know—it’s bold, it’s odd.</p>
-    <p>But at this point, you’re already used to my out-of-the-box ways, right?</p>
-    <p>So… here it is.</p>
+        <p class="line">This is a pretty unusual situation, isn’t it?</p>
+        <p class="line">I mean, how can I be sure you’ll ever check this website again?</p>
+        <p class="line">The truth is—I can’t be sure at all.</p>
+        <p class="line">The only thing I <i>am</i> sure of is that I miss you. I really do.</p>
+        <p class="line">I hoped, maybe, just maybe, you’d miss me at the same time…</p>
+        <p class="line">And maybe, you’d come back here, just to check.</p>
+        <p class="line">Yeah, I know—it’s bold, it’s odd.</p>
+        <p class="line">But at this point, you’re already used to my out-of-the-box ways, right?</p>
+        <p class="line">So… here it is.</p>
 
-    <button id="btnYes">Yes, I do</button>
-    <button id="btnNo">No, I don't</button>
+        <div class="buttons">
+            <button id="btnYes">Yes, I do</button>
+            <button id="btnNo">No, I don't</button>
+        </div>
 
-    <div id="messageInput">
-        <input type="text" id="userMessage" placeholder="Write your message...">
-        <button id="sendMessage">Send</button>
+        <div id="messageInput">
+            <input type="text" id="userMessage" placeholder="Write your message...">
+            <button id="sendMessage">Send</button>
+        </div>
     </div>
 
     <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const lines = document.querySelectorAll(".line");
+            let index = 0;
+
+            function showNextLine() {
+                if (index < lines.length) {
+                    lines[index].style.animationDelay = "0.5s";
+                    lines[index].style.opacity = "1";
+                    window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+                    index++;
+                    setTimeout(showNextLine, 1500);
+                } else {
+                    document.querySelector(".buttons").style.display = "block";
+                    window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+                }
+            }
+
+            showNextLine();
+        });
+
         document.getElementById("btnYes").onclick = function() {
             document.getElementById("messageInput").style.display = "block";
             document.getElementById("sendMessage").style.display = "inline-block";
+            window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
         };
 
         document.getElementById("btnNo").onclick = function() {
