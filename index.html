@@ -118,10 +118,6 @@
         </div>
     </div>
 
-    <audio id="backgroundMusic" loop>
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mp3">
-    </audio>
-
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             const lines = [
@@ -140,15 +136,9 @@
             const textContainer = document.getElementById("textContainer");
             const buttons = document.querySelector(".buttons");
 
-            function playTypingSound() {
-                const typingSound = new Audio('https://www.soundjay.com/button/beep-07.wav');
-                typingSound.play();
-            }
-
             function typeText(element, text, i = 0) {
                 if (i < text.length) {
                     element.textContent += text.charAt(i);
-                    playTypingSound(); // Play typing sound
                     setTimeout(() => typeText(element, text, i + 1), 100); // Adjust typing speed here
                 }
             }
