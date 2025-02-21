@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Le style reste identique -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Do You Wanna Reconnect?</title>
     <style>
-        <style>
-        /* Les styles restent identiques */
         body, html {
             margin: 0;
             padding: 0;
@@ -47,6 +47,8 @@
         .buttons {
             display: none;
             margin-top: 20px;
+            flex-direction: column;
+            align-items: center;
         }
 
         button {
@@ -73,6 +75,8 @@
             display: none;
             margin-top: 20px;
             width: 100%;
+            flex-direction: column;
+            align-items: center;
         }
 
         input {
@@ -84,6 +88,7 @@
             border: none;
             outline: none;
             box-sizing: border-box;
+            margin-bottom: 10px;
         }
 
         #textContainer {
@@ -117,7 +122,6 @@
             50% { transform: translate(-2px, -2px); }
             100% { transform: translate(2px, 2px); }
         }
-    </style>
     </style>
 </head>
 <body>
@@ -176,9 +180,7 @@
                         showNextLine();
                     });
                 } else {
-                    // Afficher les boutons ET scroller jusqu'à eux
                     buttons.style.display = "flex";
-                    buttons.style.justifyContent = "center";
                     setTimeout(() => {
                         buttons.scrollIntoView({ behavior: "smooth", block: "end" });
                     }, 100);
@@ -187,7 +189,6 @@
 
             showNextLine();
 
-            // Adaptation responsive identique
             function adjustLayout() {
                 const screenWidth = window.innerWidth;
                 const content = document.querySelector("#content");
@@ -203,12 +204,9 @@
             window.addEventListener("resize", adjustLayout);
         });
 
-        // Modification pour l'affichage du messageInput
         document.getElementById("btnYes").onclick = function() {
-            document.getElementById("messageInput").style.display = "block";
+            document.getElementById("messageInput").style.display = "flex";
             document.getElementById("sendMessage").style.display = "inline-block";
-            
-            // Scroll immédiat vers le champ de message
             setTimeout(() => {
                 document.getElementById("userMessage").scrollIntoView({ 
                     behavior: "smooth", 
@@ -217,7 +215,32 @@
             }, 100);
         };
 
-        /* ... [Le reste du code reste identique] ... */
+        document.getElementById("btnNo").onclick = function() {
+            sendMessage("I don't");
+        };
+
+        document.getElementById("sendMessage").onclick = function() {
+            const userMessage = document.getElementById("userMessage").value;
+            if (userMessage.trim() !== "") {
+                sendMessage(userMessage);
+            }
+        };
+
+        function sendMessage(message) {
+            fetch('/send-message', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert("Message sent!");
+            })
+            .catch(error => {
+                alert("Error sending message.");
+                console.error(error);
+            });
+        }
     </script>
 </body>
 </html>
