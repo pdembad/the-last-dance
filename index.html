@@ -136,12 +136,12 @@
             const textContainer = document.getElementById("textContainer");
             const buttons = document.querySelector(".buttons");
 
-            function typeText(element, text, i = 0) {
-                console.log(`Starting to type text: ${text}`);
+            function typeText(element, text, i = 0, callback) {
                 if (i < text.length) {
                     element.textContent += text.charAt(i);
-                    console.log(`Current text: ${element.textContent}`); // Debugging text update
-                    setTimeout(() => typeText(element, text, i + 1), 200); // Adjusted to slower speed for debugging
+                    setTimeout(() => typeText(element, text, i + 1, callback), 100); // Typing speed adjusted
+                } else {
+                    callback(); // Call callback when the line is completely typed
                 }
             }
 
@@ -150,19 +150,18 @@
                     const p = document.createElement("p");
                     p.className = "line";
                     textContainer.appendChild(p);
-                    typeText(p, lines[index]); // Start typing each line
-                    index++;
-                    console.log(`Line added: ${lines[index-1]}`);
-                    setTimeout(showNextLine, 3500); // Delay between lines
+                    typeText(p, lines[index], 0, function () {
+                        index++; // Move to the next line after the current one is done
+                        setTimeout(showNextLine, 1000); // Delay before the next line starts
+                    });
                 } else {
-                    console.log("All lines have been shown.");
                     buttons.style.display = "flex";
                     buttons.style.justifyContent = "center";
                     window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
                 }
             }
 
-            showNextLine(); // Call showNextLine to start displaying text
+            showNextLine(); // Start displaying text line by line
         });
 
         document.getElementById("btnYes").onclick = function() {
