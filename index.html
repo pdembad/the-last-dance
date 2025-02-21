@@ -30,10 +30,10 @@
         .line {
             font-size: 1.2em;
             margin-bottom: 15px;
-            opacity: 0;
+            opacity: 1; /* Assurons-nous que le texte est visible */
             white-space: nowrap;
             overflow: hidden;
-            width: 0;
+            width: auto; /* Ajustement de la largeur */
             display: inline-block;
         }
 
@@ -137,11 +137,11 @@
             const buttons = document.querySelector(".buttons");
 
             function typeText(element, text, i = 0) {
-                console.log(`Typing text: ${text}`);
+                console.log(`Starting to type text: ${text}`);
                 if (i < text.length) {
                     element.textContent += text.charAt(i);
-                    console.log(`Current text: ${element.textContent}`);
-                    setTimeout(() => typeText(element, text, i + 1), 100); // Adjust typing speed here
+                    console.log(`Current text: ${element.textContent}`); // Debugging text update
+                    setTimeout(() => typeText(element, text, i + 1), 200); // Adjusted to slower speed for debugging
                 }
             }
 
@@ -152,7 +152,7 @@
                     textContainer.appendChild(p);
                     typeText(p, lines[index]); // Start typing each line
                     index++;
-                    console.log(`Showing line: ${lines[index-1]}`);
+                    console.log(`Line added: ${lines[index-1]}`);
                     setTimeout(showNextLine, 3500); // Delay between lines
                 } else {
                     console.log("All lines have been shown.");
