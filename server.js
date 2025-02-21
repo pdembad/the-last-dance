@@ -13,7 +13,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // Twilio client
-const client = twilio("ACa5b7a1d708145bd59252af14a06d05ef", "801543f695fb985ff39c0161cb1a354b");
+const client = twilio("ACa5b7a1d708145bd59252af14a06d05ef", "15b2db94fb345aca62f026d543764555");
 
 // Serve static files
 app.use(express.static(path.join(__dirname, '/')));
