@@ -35,12 +35,15 @@
             font-size: 1.2em;
             margin-bottom: 15px;
             opacity: 1;
-            white-space: nowrap;
+            white-space: normal; /* Permet au texte de revenir à la ligne */
+            word-wrap: break-word; /* Forcer le passage à la ligne si nécessaire */
             overflow: hidden;
-            width: 100%;
-            display: inline-block;
-            word-wrap: break-word; /* Prevent word overflow */
+            width: 90%; /* Empêche le débordement */
+            max-width: 600px; /* Ne dépasse pas une largeur confortable */
+            display: block;
+            text-align: center; /* Centre le texte */
         }
+
 
         .buttons {
             display: none;
@@ -83,6 +86,12 @@
             outline: none;
             box-sizing: border-box;
         }
+#textContainer {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 10px;
+}
 
         #sendMessage {
             display: none;
